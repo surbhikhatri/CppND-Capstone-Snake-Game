@@ -2,6 +2,7 @@
 #include <iostream>
 #include "SDL.h"
 #include "snake.h"
+#include "game.h"
 
 void Controller::ChangeDirection(Snake &snake, Snake::Direction input,
                                  Snake::Direction opposite) const {
@@ -9,7 +10,7 @@ void Controller::ChangeDirection(Snake &snake, Snake::Direction input,
   return;
 }
 
-void Controller::HandleInput(bool &running, Snake &snake) const {
+void Controller::HandleInput(bool &running, Snake &snake, Game &game) const {
   SDL_Event e;
   while (SDL_PollEvent(&e)) {
     if (e.type == SDL_QUIT) {
@@ -35,6 +36,16 @@ void Controller::HandleInput(bool &running, Snake &snake) const {
           ChangeDirection(snake, Snake::Direction::kRight,
                           Snake::Direction::kLeft);
           break;
+
+        // capture break key press
+        case SDLK_b:
+          //break/continue method
+          game.TriggerBreak();
+         break;
+
+        // capture F key
+        case SDLK_f:
+          game._fence ? game._fence = false : game._fence = true;
       }
     }
   }

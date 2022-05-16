@@ -8,13 +8,15 @@ class Snake {
  public:
   enum class Direction { kUp, kDown, kLeft, kRight };
 
-  Snake(int grid_width, int grid_height)
-      : grid_width(grid_width),
+  // update constructor to get score reference from game class
+  Snake(int grid_width, int grid_height, int *score)
+      : _score(score),
+        grid_width(grid_width),
         grid_height(grid_height),
         head_x(grid_width / 2),
         head_y(grid_height / 2) {}
 
-  void Update();
+  void Update(bool *fence, bool *energy_bar);
 
   void GrowBody();
   bool SnakeCell(int x, int y);
@@ -29,12 +31,13 @@ class Snake {
   std::vector<SDL_Point> body;
 
  private:
-  void UpdateHead();
-  void UpdateBody(SDL_Point &current_cell, SDL_Point &prev_cell);
+  void UpdateHead(bool *fence);
+  void UpdateBody(SDL_Point &current_cell, SDL_Point &prev_cell, bool *energy_bar);
 
   bool growing{false};
   int grid_width;
   int grid_height;
+  int *_score;
 };
 
 #endif

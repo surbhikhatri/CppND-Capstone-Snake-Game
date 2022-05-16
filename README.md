@@ -4,9 +4,25 @@ This is a starter repo for the Capstone project in the [Udacity C++ Nanodegree P
 
 <img src="snake_game.gif"/>
 
-The Capstone Project gives you a chance to integrate what you've learned throughout this program. This project will become an important part of your portfolio to share with current and future colleagues and employers.
+In this project I extended the [Snake Game](https://github.com/udacity/CppND-Capstone-Snake-Game) by following the principles I learned throughout the c++ Nanodegree Program. See [Rubric Points](#rubric-points)
 
-In this project, you can build your own C++ application or extend this Snake game, following the principles you have learned throughout this Nanodegree Program. This project will demonstrate that you can independently create applications using a wide range of C++ features.
+## New Features
+* Pause
+  * Game can be **paused/resumed** by pressing `ESC` button.  
+
+* Energy Bar
+  * There is a 30% chance for a food to be an energy bar.
+  * Energy Bars are unidentified until eaten and if snake eats and energy bar, the food it will consume in next 10 sec will have double points, hence 2x size growth.
+
+* Added modal box functionality
+  * When we die, a small dialog box will appears and show the score, size and the reaons of death in the modal. 
+
+* There is a **fence** option available. 
+  * Pressing the `f` key will enable/disable the fence around the game window. 
+  * Touching the fence will result in the death of the snake.
+
+* Take a Break!
+  * User can take **break** or **continue** by pressing `b` button.  
 
 ## Dependencies for Running Locally
 * cmake >= 3.7
@@ -17,7 +33,7 @@ In this project, you can build your own C++ application or extend this Snake gam
   * Windows: [Click here for installation instructions](http://gnuwin32.sourceforge.net/packages/make.htm)
 * SDL2 >= 2.0
   * All installation instructions can be found [here](https://wiki.libsdl.org/Installation)
-  >Note that for Linux, an `apt` or `apt-get` installation is preferred to building from source. 
+  * Note that for Linux, an `apt` or `apt-get` installation is preferred to building from source.
 * gcc/g++ >= 5.4
   * Linux: gcc / g++ is installed by default on most Linux distros
   * Mac: same deal as make - [install Xcode command line tools](https://developer.apple.com/xcode/features/)
@@ -30,17 +46,28 @@ In this project, you can build your own C++ application or extend this Snake gam
 3. Compile: `cmake .. && make`
 4. Run it: `./SnakeGame`.
 
+## Rubric Points
 
-## CC Attribution-ShareAlike 4.0 International
+### Loops, Functions, I/O
+The project code is clearly organized into functions and classes. All funtions follow single responsibilty principle and can be reused.
 
+Project accept user inputs during the game, these inputs are used by controlling the snake and other game features such as pausing and triggering the wall.
 
-Shield: [![CC BY-SA 4.0][cc-by-sa-shield]][cc-by-sa]
+### Object Oriented Programming
+- The project uses Object Oriented Programming techniques.
+  - The project code is organized into classes having it's own data members and menber functions.
+- Classes use appropriate access specifiers for class members.
+  - Please visit the `src` folder and take a look.
+- Class constructors utilize member initialization lists.
+  - Examples include [game.cpp](./src/game.cpp#L9).
+- Classes follow an appropriate inheritance hierarchy.
+  - Examples include use of friend classes.
 
-This work is licensed under a
-[Creative Commons Attribution-ShareAlike 4.0 International License][cc-by-sa].
+### Memory Management
+- The project makes use of references in function declarations.
+  - Examples include [game.h](./src/game.h#L42) and [controller.h](./src/controller.h#L12).
+- The project uses destructors appropriately.
+  - Examples include [renderer.h](./src/renderer.h#L12).
 
-[![CC BY-SA 4.0][cc-by-sa-image]][cc-by-sa]
-
-[cc-by-sa]: http://creativecommons.org/licenses/by-sa/4.0/
-[cc-by-sa-image]: https://licensebuttons.net/l/by-sa/4.0/88x31.png
-[cc-by-sa-shield]: https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey.svg
+### Concurrency
+The project creates a thread each time snake eats energy bas. This thread waits for 10 seconds and return back the snake's to normal by modifying the game's private pointer variable.

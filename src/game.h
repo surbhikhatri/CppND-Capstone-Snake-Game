@@ -10,14 +10,22 @@
 class Game {
  public:
   Game(std::size_t grid_width, std::size_t grid_height);
-  void Run(Controller const &controller, Renderer &renderer,
+  void Run(Controller const &controller, Renderer *renderer,
            std::size_t target_frame_duration);
   int GetScore() const;
   int GetSize() const;
+  std::string GetReason() const;
+
+ friend class Controller;
+
+ protected:
+  bool _fence; // fence around the game screen
 
  private:
   Snake snake;
   SDL_Point food;
+  bool _energy_bar;
+  bool _break;
 
   std::random_device dev;
   std::mt19937 engine;
@@ -27,7 +35,10 @@ class Game {
   int score{0};
 
   void PlaceFood();
-  void Update();
+  void Break();
+  void Continue();
+  void TriggerBreak();
+  void Update(Renderer *renderer);
 };
 
 #endif
